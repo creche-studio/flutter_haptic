@@ -38,6 +38,7 @@ class FlutterHapticPlugin: FlutterPlugin, MethodCallHandler {
             VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
         }
         vibrator.vibrate(effect)
+        result.success(null)
       }
       "performFailureFeedback" -> {
         val effect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -49,6 +50,7 @@ class FlutterHapticPlugin: FlutterPlugin, MethodCallHandler {
           ), -1)
         }
         vibrator.vibrate(effect)
+        result.success(null)
       }
       else -> {
         result.notImplemented()
