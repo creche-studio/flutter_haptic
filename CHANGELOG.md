@@ -1,3 +1,5 @@
 ## 0.0.1
-
-* TODO: Describe initial release.
+- implement minimum feature.
+  - `Haptic.onSuccess();`
+  - `Haptic.onFailure();`
+  - `Haptic.onSelection();`
