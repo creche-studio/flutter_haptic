@@ -25,32 +25,30 @@ class FlutterHapticPlugin: FlutterPlugin, MethodCallHandler {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_haptic")
     channel.setMethodCallHandler(this)
 
-    vibrator = flutterPluginBinding.applicationContext.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    vibrator = flutterPluginBinding.applicationContext.getSystemService(Vibrator::class.java)
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when (call.method) {
       "performSuccessFeedback" -> {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-          val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
-          vibrator.vibrate(effect)
+        val effect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+          VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
         } else {
-          val effect = VibrationEffect.createWaveform(longArrayOf(7, 100), intArrayOf(
+          VibrationEffect.createWaveform(longArrayOf(7, 100), intArrayOf(
             VibrationEffect.DEFAULT_AMPLITUDE, 0), -1)
-          vibrator.vibrate(effect)
         }
+        vibrator.vibrate(effect)
       }
       "performFailureFeedback" -> {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-          val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK)
-          vibrator.vibrate(effect)
+        val effect = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+          VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK)
         } else {
-          val effect = VibrationEffect.createWaveform(longArrayOf(9, 130, 11), intArrayOf(
+          VibrationEffect.createWaveform(longArrayOf(9, 130, 11), intArrayOf(
             VibrationEffect.DEFAULT_AMPLITUDE, 0,
             VibrationEffect.DEFAULT_AMPLITUDE
           ), -1)
-          vibrator.vibrate(effect)
         }
+        vibrator.vibrate(effect)
       }
       else -> {
         result.notImplemented()
