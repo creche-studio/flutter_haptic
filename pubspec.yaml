@@ -1,6 +1,6 @@
 name: flutter_haptic
 description: Flutter Plugin for calling mobile native Haptic feature
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/creche-studio/flutter_haptic
 
 environment:
